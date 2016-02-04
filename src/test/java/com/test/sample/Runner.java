@@ -5,6 +5,9 @@ import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Runner {
     List<Thread> threads = new ArrayList<Thread>();
@@ -16,7 +19,7 @@ public class Runner {
         testCases.add(Sample2Test.class);
         testCases.add(SampleTest.class);
 
-        /*ExecutorService executorService = Executors.newFixedThreadPool(2);
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
         for (final Class testFile : testCases) {
             executorService.submit(new Runnable() {
                 public void run() {
@@ -34,8 +37,8 @@ public class Runner {
         }
         // baseTest.convertXmlToJSon();
         System.out.println("ending");
-*/
-        parallelTests(1, testCases);
+
+//        parallelTests(1, testCases);
     }
 
     public void parallelTests(int deviceCount, final List<Class> testCases) throws InterruptedException {
