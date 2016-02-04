@@ -40,7 +40,10 @@ public class BaseTest extends TestListenerAdapter {
 
     @BeforeMethod
     public void beforeMethod() throws MalformedURLException {
-        iosNative(appiumServerPort);
+        if(driver==null){
+            iosNative(appiumServerPort);
+        }
+
         ExtentTestManager.startTest(getClass().getName(), "This is a simple test.")
                 .assignCategory(Thread.currentThread().getName());
 
@@ -65,8 +68,7 @@ public class BaseTest extends TestListenerAdapter {
         }
         ExtentTestManager.endTest();
         ExtentManager.getInstance().flush();
-        driver.quit();
-
+        driver.closeApp();
     }
 
     protected String getStackTrace(Throwable t) {
@@ -95,7 +97,8 @@ public class BaseTest extends TestListenerAdapter {
         String chromePort = ap.getPort();
         String bootstrapPort = ap.getPort();
         String projectRoot=System.getProperty("user.dir")+"/target/";
-        thread_device_count = Integer.valueOf(Thread.currentThread().getName().split("-")[3]) - 1;
+       // thread_device_count = Integer.valueOf(Thread.currentThread().getName().split("-")[3]) - 1;
+        thread_device_count = Integer.valueOf(Thread.currentThread().getName().split("-")[1]);
         String UDID = getIOSUDID().get(thread_device_count);
         String command = "appium --session-override -p " + port + " --chromedriver-port " + chromePort + " -bp "
                 + bootstrapPort + " -U " + UDID + " --native-instruments-lib " + " --tmp " + projectRoot+"tmp_" + port;
@@ -151,10 +154,11 @@ public class BaseTest extends TestListenerAdapter {
         // TODO Auto-generated method stub
         capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone");
         capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "9.0");
-        capabilities.setCapability(MobileCapabilityType.APP, "");
+        capabilities.setCapability(MobileCapabilityType.APP, "/Users/saikrisv/Downloads/WordPress25-1.ipa");
         capabilities.setCapability(MobileCapabilityType.SUPPORTS_ALERTS, true);
-        capabilities.setCapability("bundleId", "");
+        capabilities.setCapability("bundleId", "com.tesco.sample");
         capabilities.setCapability("autoAcceptAlerts", true);
+        System.out.println("http://127.0.0.1:"+port+"/wd/hub");
         driver = new IOSDriver<MobileElement>(new URL("http://127.0.0.1:"+port+"/wd/hub"),capabilities);
     }
 }

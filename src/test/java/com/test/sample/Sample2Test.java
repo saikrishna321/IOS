@@ -15,7 +15,7 @@ public class Sample2Test extends BaseTest {
 		
 	}
 	
-	@Test(retryAnalyzer=Retry.class)
+	@Test
 	public void testApp5(){
 		System.out.println("ThreadName: " + Thread.currentThread().getName() + Thread.currentThread().getStackTrace()[1].getClassName());
 		Reporter.log("Test Logger Same Under the test");
@@ -23,7 +23,7 @@ public class Sample2Test extends BaseTest {
 		AssertJUnit.assertTrue(true);
 	}
 
-	@Test(retryAnalyzer=Retry.class)
+	@Test(retryAnalyzer = Retry.class)
 	public void testApp6(){
 		System.out.println("ThreadName: " + Thread.currentThread().getName() + Thread.currentThread().getStackTrace()[1].getClassName());
 		MyClass c = new MyClass();
@@ -32,7 +32,7 @@ public class Sample2Test extends BaseTest {
 	}
 
 
-	@Test(retryAnalyzer=Retry.class)
+	@Test
 	public void testApp7(){
 		System.out.println("ThreadName: " + Thread.currentThread().getName() + Thread.currentThread().getStackTrace()[1].getClassName());
 
